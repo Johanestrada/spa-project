@@ -1,14 +1,14 @@
-#comando para der el nombre del flujo
+#comando para dar el nombre del flujo
 name: CI pipeline
 
-#Idica cuando se ejecuta el flujo
+#Indica cuando se ejecuta el flujo
 on:
   pull_request:
   push:
     branches:
-    - develop
+      - develop
 
-#Acciones que se ejecutaran en el servidor
+#Acciones que se ejecutarán en el servidor
 jobs:
   frontend-build:
     runs-on: ubuntu-latest
@@ -16,20 +16,20 @@ jobs:
     #configuraciones por defecto
     defaults:
       run:
-        working-directory: frontend #direccion que se levantara
+        working-directory: frontend #direccion que se levantará
 
-      #pasos para levantar proyecto
-      steps:
-        - name: Checkout repository (git clone)
-          uses: actions/checkout@v4
+    #pasos para levantar proyecto
+    steps:
+      - name: Checkout repository (git clone)
+        uses: actions/checkout@v4
 
-        - name: Setup node (instalar node) 
-          uses: actions/setup-node@v4
-          with:
-            node-version: '20'
-        
-        - name: Instalar dependencias
-          run: npm install
-        
-        - name: Construir el frontend
-          run: npm run build
+      - name: Setup node (instalar node) 
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Instalar dependencias
+        run: npm install
+      
+      - name: Construir el frontend
+        run: npm run build
