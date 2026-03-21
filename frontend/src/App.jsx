@@ -7,7 +7,7 @@ function App() {
 
   useEffect(()=>{
     fetch("http://localhost:8080/api/planes").then(resp=>{
-      if(!resp.ok) throw new error("Error al obtener plan")
+      if(!resp.ok) throw new Error("Error al obtener plan")
       return resp.json()
     }).then(data=>{
       setPlanes(data)
