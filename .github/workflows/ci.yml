@@ -35,7 +35,7 @@ jobs:
         run:
           npm run build
 
-  #frontend test
+  #fronte
   frontend-test:
     runs-on: ubuntu-latest
 
@@ -58,7 +58,7 @@ jobs:
         run: npm install
 
       - name: Ejecutar tests frontend
-        run: npm test -- --watchAll=false
+        run: npx vitest run
 
   # backend build
   backend-build:
