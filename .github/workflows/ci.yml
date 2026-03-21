@@ -23,13 +23,81 @@ jobs:
       - name: Checkout repository (git clone)
         uses: actions/checkout@v4
 
-      - name: Setup node (instalar node) 
+      - name: Setup node (instalar node)
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      
+          node-version: "20"
+
       - name: Instalar dependencias
         run: npm install
-      
+
       - name: Construir el frontend
-        run: npm run build
+        run:
+          npm run build
+
+  #frontend test
+  frontend-test:
+    runs-on: ubuntu-latest
+
+    #configuraciones por defecto
+    defaults:
+      run:
+        working-directory: frontend #direccion que se levantará
+
+    #pasos para levantar proyecto
+    steps:
+      - name: Checkout repository (git clone)
+        uses: actions/checkout@v4
+
+      - name: Setup node (instalar node)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar tests frontend
+        run: npm test -- --watchAll=false
+
+  # backend build
+  backend-build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: Build backend
+        run: mvn clean install -DskipTests
+
+  # backend test
+  backend-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: Ejecutar tests backend
+        run: mvn test
